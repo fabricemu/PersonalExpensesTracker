@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Personal Expenses Tracker</title>
+    <link href="images/fc_small.png" rel="icon" type="image/png">
+    <link href="css/themify-icons.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="nav-container">
+    <div class="nav-left">
+        <a class="logo" href="#"><img alt="" src="images/fc_logo.png"></a>
+    </div>
+    <div class="middle">
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+    </div>
+    <div class="nav-right">
+        <a class="login-btn" href="#">Login</a>
+        <a class="signup-btn" href="#">Sign Up</a>
+    </div>
+</div>
+
+<header class="hero">
+    <div class="container">
+        <h1>Take Control of Your Finances</h1>
+        <p>Track and Manage Your Expenses</p>
+        <p>Our Personal Expenses Tracker empowers you to stay on top of your spending, providing you with the tools you
+            need to budget wisely and achieve your financial goals. With intuitive features and seamless functionality,
+            managing your expenses has never been easier. Start your journey to financial freedom today!</p>
+        <button class="btn">Start Now</button>
+    </div>
+</header>
+
+<section class="body-section">
+    <div class="container">
+        <h2>Get started with little management to desired future life</h2>
+        <p>Choose time frame</p>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Fabrice. CodetyHub.</p>
+    </div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Login</h2>
+        <form class="input-form">
+            <div class="login-data">
+                <label for="username">Username</label>
+                <input id="username" name="username" placeholder="Enter your username" type="text">
+
+                <label for="password">Password</label>
+                <input id="password" name="password" placeholder="Enter your password" type="password">
+            </div>
+
+            <p>Forget my password? <a class="signup-btn" href="#">Reset now</a></p>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal" id="signupModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Sign Up</h2>
+        <form class="input-form">
+            <div class="form-data">
+                <div class="left">
+                    <label for="f_name">First Name</label>
+                    <input id="f_name" name="fname" placeholder="Enter your first name" type="text">
+                    <label for="l_name">Last Name</label>
+                    <input id="l_name" name="lname" placeholder="Enter your last name" type="text">
+                </div>
+                <div class="right">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" placeholder="Enter your email" type="email">
+                    <label for="phone">phone</label>
+                    <input id="phone" name="phone" placeholder="Enter your mobile phone" type="text">
+                </div>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</div>
+
+<script src="js/scripts.js"></script>
+</body>
+</html>
+
