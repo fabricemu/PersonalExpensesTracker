@@ -24,9 +24,9 @@ for (const closeBtn of closeBtns) {
         signupModal.style.display = "none";
     }
 }
-window.onclick = (event) => {
-    if (event.target === loginModal || event.target === signupModal) {
-        loginModal.style.display = "none";
-        signupModal.style.display = "none";
-    }
-}
+// window.onclick = (event) => {
+//     if (event.target === loginModal || event.target === signupModal) {
+//         loginModal.style.display = "none";
+//         signupModal.style.display = "none";
+//     }
+// }

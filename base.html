@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Personal Expenses Tracker</title>
+    <link href="images/fc_small.png" rel="icon" type="image/png">
+    <link href="css/themify-icons.css" rel="stylesheet">
+<!--        <link href="css/styles.css" rel="stylesheet">-->
+</head>
+<style>
+    /* Style for the top navigation bar */
+    /* Style for the top navigation bar */
+    .topnav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-left: 270px;
+        width: 100%;
+        background-color: #fff;
+        /*padding: 5px 20px;*/
+        /*z-index: 1000;*/
+        border: 1px solid darkblue;
+        transition: margin-left 0.5s;
+    }
+
+    /* Style for the side navigation */
+    .sidebar {
+        height: 100%;
+        width: 270px; /* Initial width for large screens */
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #111c43;
+        overflow-x: hidden;
+        padding-top: 60px;
+        transition: 0.5s;
+        z-index: 2;
+    }
+
+    /* Style for the close button in the side navigation */
+    .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    /* Style for the toggle button */
+    .toggle-btn {
+        display: none; /* Initially hidden on large screens */
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    main {
+        margin-left: 270px; /* Same width as the sidebar */
+        transition: margin-left 0.5s;
+        border: 1px solid red;
+        margin-top: 70px;
+    }
+
+    /* Responsive layout - hide side navigation on smaller screens */
+    @media screen and (max-width: 768px) {
+        .sidebar {
+            width: 0;
+        }
+        .topnav{
+            margin-left: auto;
+        }
+
+        .toggle-btn {
+            display: block; /* Show toggle button on smaller screens */
+        }
+
+        main {
+            margin-left: 0; /* Reset margin for smaller screens */
+        }
+    }
+
+</style>
+<body>
+
+<!--<div>-->
+<!--    <nav class="menu" tabindex="0">-->
+<!--        <div class="smartphone-menu-trigger"></div>-->
+<!--        <header class="avatar">-->
+<!--            <img src="#"/>-->
+<!--            <h2>John D.</h2>-->
+<!--        </header>-->
+<!--        <ul>-->
+<!--            <li class="icon-dashboard link side-active" id="pages/dashboard.html" tabindex="0"><span>Dashboard</span>-->
+<!--            </li>-->
+<!--            <li class="icon-customers link" id="pages/expenses.html"><span>Expenses</span></li>-->
+<!--            <li class="icon-users link" id="pages/planning.html"><span>Planning</span></li>-->
+<!--            <li class="icon-users link" id="pages/stat.html"><span>Statistics</span></li>-->
+<!--            <li class="icon-settings link" id="pages/profile.html"><span>My Profile</span></li>-->
+<!--            <li class="icon-settings" id="logout"><span>Logout</span></li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--    <div class="wrapper">-->
+<!--        <div class="nav-container">-->
+<!--            <div class="nav-left">-->
+<!--                <a class="logo" href="#"><img alt="" src="../images/fc_logo.png"></a>-->
+<!--            </div>-->
+<!--            <div class="middle">-->
+<!--            </div>-->
+<!--            <div class="nav-right">-->
+<!--                <i class="ti ti-user"></i>-->
+<!--                <span>name</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <main>-->
+<!--        </main>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+
+<!--<footer>-->
+<!--    <div class="container">-->
+<!--        <p>&copy; 2024 Fabrice. CodetyHub.</p>-->
+<!--    </div>-->
+<!--</footer>-->
+
+
+
+<!-- Side navigation -->
+<div class="sidebar" id="mySidebar">
+    <a class="closebtn" href="javascript:void(0)" onclick="closeNav()">×</a>
+    <!-- Add side navigation links as needed -->
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+</div>
+
+<!-- Page content -->
+<main>
+    <div class="topnav">
+        <h4>Top Navigation</h4>
+        <!-- Add navigation links as needed -->
+    </div>
+    <!-- This is where other pages will land -->
+    <h2>Main Content Area</h2>
+    <p>This is the main content area. Content starts below the top navigation.</p>
+    <!-- Additional content goes here -->
+</main>
+
+<!-- Toggle button for smaller screens -->
+<div class="toggle-btn" onclick="toggleNav()">☰ Toggle Sidebar</div>
+
+<!-- Page content -->
+<main class="main">
+    <!-- This is where other pages will land -->
+    <h2>Main Content Area</h2>
+    <p>This is the main content area. Content starts below the fixed navigation bars.</p>
+    <!-- Additional content goes here -->
+</main>
+
+
+<!--<script>-->
+<!--    if (!sessionStorage.getItem('userEmail')) {-->
+<!--        // If not logged in, redirect to the login page-->
+<!--        window.location.href = 'index.html';-->
+<!--    }-->
+<!--    const links = document.getElementsByClassName("link")-->
+<!--    const out = document.getElementById("logout")-->
+
+
+<!--    window.addEventListener("DOMContentLoaded", () => {-->
+<!--        const storedHref = sessionStorage.getItem("savedHref");-->
+<!--        const defaultHref = document.querySelector(".side-active").getAttribute("id")-->
+<!--        const href = storedHref !== null ? storedHref : defaultHref;-->
+<!--        pages(href)-->
+<!--    });-->
+<!--    [...links].forEach(link => {-->
+<!--        link.addEventListener("click", () => {-->
+<!--            [...links].map(link => link.classList.remove("side-active"))-->
+<!--            link.classList.add("side-active")-->
+<!--            // alert(JSON.stringify([...links].map(link => link.getAttribute("class"))))-->
+<!--            const href = document.querySelector(".side-active").getAttribute("id")-->
+<!--            sessionStorage.setItem("savedHref", href);-->
+<!--            pages(href)-->
+<!--        })-->
+<!--    })-->
+
+<!--    const pages = (path) => {-->
+<!--        fetch(`${path}`)-->
+<!--            .then(response => response.text())-->
+<!--            .then(html => {-->
+<!--                const mainElement = document.querySelector('main');-->
+<!--                if (mainElement) {-->
+<!--                    mainElement.innerHTML = html;-->
+<!--                } else {-->
+<!--                    console.error('Main element not found in the document.');-->
+<!--                }-->
+<!--            })-->
+<!--            .catch(error => console.error('Error fetching content:', error));-->
+<!--    }-->
+<!--    out.addEventListener("click", () => {-->
+<!--        sessionStorage.removeItem("savedHref");-->
+<!--        sessionStorage.removeItem("userEmail");-->
+<!--        window.location.href = "index.html"-->
+<!--    })-->
+
+<script>
+    // window.addEventListener("click", () => closeNav())
+    const toggleNav = () => {
+        const sidebar = document.getElementById("mySidebar");
+        if (sidebar.style.width === "270px") {
+            sidebar.style.width = "0";
+        } else {
+            sidebar.style.width = "270px";
+
+        }
+    }
+
+    const closeNav = () => {
+        document.getElementById("mySidebar").style.width = "0";
+    }
+
+    // if (window.innerWidth <= 768) {
+    //     document.querySelector('.main').addEventListener('click', () => {
+    //         closeNav();
+    //     });
+    // }
+
+alert(window.innerWidth <= 768)
+
+</script>
+
+<!--</script>-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
+<script src="js/config.js"></script>
+<!--<script src="js/auth.js"></script>-->
+<script src="js/firebase.js"></script>
+<script src="js/scripts.js"></script>
+</body>
+</html>
+

@@ -58,15 +58,14 @@
         <form class="input-form">
             <div class="login-data">
                 <label for="username">Username</label>
-                <input id="username" name="username" placeholder="Enter your username" type="text">
+                <input id="username" name="username" placeholder="Enter your username" type="text" required>
 
-                <label for="password">Password</label>
-                <input id="password" name="password" placeholder="Enter your password" type="password">
+                <label for="user_password">Password</label>
+                <input id="user_password" name="password" placeholder="Enter your password" type="password" required>
             </div>
-
             <p><a class="reset-btn" href="#">Forget my password?</a></p>
             <p>Dont have an account? <a class="signup-btn" href="#">Sign up</a></p>
-            <button type="submit">Submit</button>
+            <button type="submit" id="login_form">Login</button>
         </form>
     </div>
 </div>
@@ -79,24 +78,34 @@
         <form class="input-form">
             <div class="form-data">
                 <div class="left">
-                    <label for="f_name">First Name</label>
-                    <input id="f_name" name="fname" placeholder="Enter your first name" type="text">
+                    <label for="f_name">First Name </label>
+                    <input id="f_name" name="fname" placeholder="Enter your first name" type="text" required>
                     <label for="l_name">Last Name</label>
                     <input id="l_name" name="lname" placeholder="Enter your last name" type="text">
+                    <label for="password">New Password</label>
+                    <input id="password" class="" name="password" placeholder="Create a password" type="password" required>
                 </div>
                 <div class="right">
                     <label for="email">Email</label>
-                    <input id="email" name="email" placeholder="Enter your email" type="email">
-                    <label for="phone">phone</label>
-                    <input id="phone" name="phone" placeholder="Enter your mobile phone" type="text">
+                    <input id="email" name="email" placeholder="Enter your email" type="email" required>
+                    <label for="phone">Phone</label>
+                    <input id="phone" name="phone" placeholder="Enter your mobile phone" type="text" required>
+                    <label for="confirm_password">Confirm Password</label>
+                    <input id="confirm_password" oninput="clear()" name="password" class="" placeholder="Enter password again" type="password">
                 </div>
             </div>
             <p>Already have an account? <a class="login-btn" href="#">Login</a></p>
-            <button type="submit">Register</button>
+            <button type="button" id="signup_form">Register</button>
         </form>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/firebase.js"></script>
 <script src="js/scripts.js"></script>
 </body>
 </html>

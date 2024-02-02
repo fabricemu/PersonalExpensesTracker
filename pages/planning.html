@@ -1,0 +1,35 @@
+<div class="main-content">
+    <h1>Timeframe Planning</h1>
+    <!-- Planning form will be displayed here -->
+    <form id="planning-form">
+        <label for="timeframe">Select Timeframe:</label>
+        <select id="timeframe" name="timeframe">
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+        </select>
+        <label for="expense-name">Expense Name:</label>
+        <input id="expense-name" name="expense-name" type="text">
+        <label for="expense-amount">Expense Amount:</label>
+        <input id="expense-amount" name="expense-amount" type="number">
+        <label for="due-date">Due Date:</label>
+        <input id="due-date" name="due-date" type="date">
+        <button type="submit">Add Expense</button>
+    </form>
+    <!-- Planning list will be displayed here -->
+    <div class="planning-list">
+        <!-- Each planning item will be displayed here -->
+        <div class="planning-item">
+            <div class="planning-details">
+                <h3>Weekly Plan</h3>
+                <p>Expense: Grocery Shopping</p>
+                <p>Amount: $100.00</p>
+                <p>Due Date: January 20, 2024</p>
+            </div>
+            <div class="planning-actions">
+                <button>Edit</button>
+                <button>Delete</button>
+            </div>
+        </div>
+        <!-- Additional planning items can be added here -->
+    </div>
+</div>
