@@ -48,19 +48,23 @@ if (!sessionStorage.getItem('userEmail')) {
     window.location.href = 'index.html';
 }
 
+const email = sessionStorage.getItem('userEmail')
 
 const links = document.getElementsByClassName("link")
 const out = document.getElementById("logout")
 
 
-
 window.addEventListener("DOMContentLoaded", () => {
     const storedHref = sessionStorage.getItem("savedHref");
     const defaultHref = document.querySelector(".active").getAttribute("id")
-    const href = storedHref !== null ? storedHref : defaultHref;
-    document.getElementById(defaultHref).classList.remove("active")
-    document.getElementById(storedHref).classList.add("active")
-
+    let href = ''
+    if (storedHref !== null) {
+        href = storedHref
+        document.getElementById(defaultHref).classList.remove("active")
+        document.getElementById(storedHref).classList.add("active")
+    } else {
+        href = defaultHref
+    }
     // alert(href)
     // alert(defaultHref)
     pages(href)
@@ -96,14 +100,7 @@ out.addEventListener("click", () => {
     window.location.href = "index.html"
 })
 
-const fireAlert = (icon, title, txt) => {
-    Swal.fire({
-        icon: `${icon}`,
-        title: `${title}`,
-        text: `${txt}`,
-    });
-}
-const confirm = (text,action) => {
+const confirm = (text, action) => {
     Swal.fire({
         title: "Are you sure?",
         text: `${text}`,
@@ -122,3 +119,27 @@ const confirm = (text,action) => {
         }
     });
 }
+
+const fetchClientData = async (email) => {
+    try {
+        // Assuming your Firestore collection is named "Client"
+        const querySnapshot = await db.collection("Users").where("email", "==", email).get();
+        const clientData = [];
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            clientData.push(data);
+        });
+
+        return clientData;
+    } catch (error) {
+        throw error;
+    }
+};
+fetchClientData(email)
+    .then((clientData) => {
+        const firstClient = clientData[0];
+        document.getElementById("names").textContent = `${firstClient.first_name}`
+    })
+    .catch((fetchError) => {
+        console.error("Error fetching client data:", fetchError);
+    });
