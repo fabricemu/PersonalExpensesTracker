@@ -6,84 +6,10 @@
 
     <title>Personal Expenses Tracker</title>
     <link href="images/fc_small.png" rel="icon" type="image/png">
-    <link href="css/themify-icons.css" rel="stylesheet">
-<!--        <link href="css/styles.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://unpkg.com/@icon/themify-icons/themify-icons.css">
+    <link href="css/base.css" rel="stylesheet">
 </head>
 <style>
-    /* Style for the top navigation bar */
-    /* Style for the top navigation bar */
-    .topnav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        margin-left: 270px;
-        width: 100%;
-        background-color: #fff;
-        /*padding: 5px 20px;*/
-        /*z-index: 1000;*/
-        border: 1px solid darkblue;
-        transition: margin-left 0.5s;
-    }
-
-    /* Style for the side navigation */
-    .sidebar {
-        height: 100%;
-        width: 270px; /* Initial width for large screens */
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: #111c43;
-        overflow-x: hidden;
-        padding-top: 60px;
-        transition: 0.5s;
-        z-index: 2;
-    }
-
-    /* Style for the close button in the side navigation */
-    .closebtn {
-        position: absolute;
-        top: 0;
-        right: 25px;
-        font-size: 36px;
-        margin-left: 50px;
-    }
-
-    /* Style for the toggle button */
-    .toggle-btn {
-        display: none; /* Initially hidden on large screens */
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        font-size: 20px;
-        cursor: pointer;
-        z-index: 1000;
-    }
-
-    main {
-        margin-left: 270px; /* Same width as the sidebar */
-        transition: margin-left 0.5s;
-        border: 1px solid red;
-        margin-top: 70px;
-    }
-
-    /* Responsive layout - hide side navigation on smaller screens */
-    @media screen and (max-width: 768px) {
-        .sidebar {
-            width: 0;
-        }
-        .topnav{
-            margin-left: auto;
-        }
-
-        .toggle-btn {
-            display: block; /* Show toggle button on smaller screens */
-        }
-
-        main {
-            margin-left: 0; /* Reset margin for smaller screens */
-        }
-    }
-
 </style>
 <body>
 
@@ -130,110 +56,51 @@
 <!--</footer>-->
 
 
-
 <!-- Side navigation -->
 <div class="sidebar" id="mySidebar">
     <a class="closebtn" href="javascript:void(0)" onclick="closeNav()">×</a>
-    <!-- Add side navigation links as needed -->
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <div class="logo">
+        <img alt="" class="" src="images/fc_logo_white.png">
+    </div>
+    <div class="side-nav">
+        <a class="link active" href="#" id="pages/dashboard.html"><i class="ti ti-home"></i>Home</a>
+        <a class="link" href="#" id="pages/expenses.html"><i class="ti ti-money"></i>Expenses</a>
+        <a class="link" href="#" id="pages/planning.html"><i class="ti ti-time"></i>Planning</a>
+        <a class="link" href="#" id="pages/stat.html"><i class="ti ti-stats-up"></i>Statistics</a>
+        <a class="link" href="#" id="pages/profile.html"><i class="ti ti-user"></i>My profile</a>
+        <a class="links" href="#" id="logout"><i class="ti ti-power-off"></i>Logout</a>
+    </div>
+</div>
+<div class="top_nav">
+    <div class="left">
+        <div class="logo-small">
+            <img alt="" class="small_img" src="images/fc_small.png">
+        </div>
+        <div class="toggle-btn" onclick="toggleNav()">☰</div>
+        <h3 class="sysName">P.E Tracker</h3>
+    </div>
+
+    <h4>Top Navigation</h4>
+    <!-- Add navigation links as needed -->
 </div>
 
 <!-- Page content -->
 <main>
-    <div class="topnav">
-        <h4>Top Navigation</h4>
-        <!-- Add navigation links as needed -->
+    <div class="load">
+         <div class="spin"></div>
     </div>
-    <!-- This is where other pages will land -->
-    <h2>Main Content Area</h2>
-    <p>This is the main content area. Content starts below the top navigation.</p>
-    <!-- Additional content goes here -->
+
 </main>
+<footer>
+    <p>Copy Right Fabrice CodetyHub 2024</p>
+</footer>
+
 
 <!-- Toggle button for smaller screens -->
-<div class="toggle-btn" onclick="toggleNav()">☰ Toggle Sidebar</div>
-
-<!-- Page content -->
-<main class="main">
-    <!-- This is where other pages will land -->
-    <h2>Main Content Area</h2>
-    <p>This is the main content area. Content starts below the fixed navigation bars.</p>
-    <!-- Additional content goes here -->
-</main>
 
 
 <!--<script>-->
-<!--    if (!sessionStorage.getItem('userEmail')) {-->
-<!--        // If not logged in, redirect to the login page-->
-<!--        window.location.href = 'index.html';-->
-<!--    }-->
-<!--    const links = document.getElementsByClassName("link")-->
-<!--    const out = document.getElementById("logout")-->
 
-
-<!--    window.addEventListener("DOMContentLoaded", () => {-->
-<!--        const storedHref = sessionStorage.getItem("savedHref");-->
-<!--        const defaultHref = document.querySelector(".side-active").getAttribute("id")-->
-<!--        const href = storedHref !== null ? storedHref : defaultHref;-->
-<!--        pages(href)-->
-<!--    });-->
-<!--    [...links].forEach(link => {-->
-<!--        link.addEventListener("click", () => {-->
-<!--            [...links].map(link => link.classList.remove("side-active"))-->
-<!--            link.classList.add("side-active")-->
-<!--            // alert(JSON.stringify([...links].map(link => link.getAttribute("class"))))-->
-<!--            const href = document.querySelector(".side-active").getAttribute("id")-->
-<!--            sessionStorage.setItem("savedHref", href);-->
-<!--            pages(href)-->
-<!--        })-->
-<!--    })-->
-
-<!--    const pages = (path) => {-->
-<!--        fetch(`${path}`)-->
-<!--            .then(response => response.text())-->
-<!--            .then(html => {-->
-<!--                const mainElement = document.querySelector('main');-->
-<!--                if (mainElement) {-->
-<!--                    mainElement.innerHTML = html;-->
-<!--                } else {-->
-<!--                    console.error('Main element not found in the document.');-->
-<!--                }-->
-<!--            })-->
-<!--            .catch(error => console.error('Error fetching content:', error));-->
-<!--    }-->
-<!--    out.addEventListener("click", () => {-->
-<!--        sessionStorage.removeItem("savedHref");-->
-<!--        sessionStorage.removeItem("userEmail");-->
-<!--        window.location.href = "index.html"-->
-<!--    })-->
-
-<script>
-    // window.addEventListener("click", () => closeNav())
-    const toggleNav = () => {
-        const sidebar = document.getElementById("mySidebar");
-        if (sidebar.style.width === "270px") {
-            sidebar.style.width = "0";
-        } else {
-            sidebar.style.width = "270px";
-
-        }
-    }
-
-    const closeNav = () => {
-        document.getElementById("mySidebar").style.width = "0";
-    }
-
-    // if (window.innerWidth <= 768) {
-    //     document.querySelector('.main').addEventListener('click', () => {
-    //         closeNav();
-    //     });
-    // }
-
-alert(window.innerWidth <= 768)
-
-</script>
 
 <!--</script>-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -243,7 +110,7 @@ alert(window.innerWidth <= 768)
 <script src="js/config.js"></script>
 <!--<script src="js/auth.js"></script>-->
 <script src="js/firebase.js"></script>
-<script src="js/scripts.js"></script>
+<script src="js/base.js"></script>
 </body>
 </html>
 
