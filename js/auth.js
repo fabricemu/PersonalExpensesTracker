@@ -47,8 +47,17 @@ const login = () => {
     const password = loginPassowordInput.value
     auth.signInWithEmailAndPassword(username, password)
         .then((userdata) => {
-            sessionStorage.setItem('userEmail', userdata.user.email)
-            window.location.href = `base.html`
+            ;
+            fetchClientData(username)
+                .then((currentUser) => {
+                    const jsonData = JSON.stringify(currentUser)
+                    sessionStorage.setItem('jsonData', jsonData);
+                    sessionStorage.setItem('userEmail', userdata.user.email)
+                    window.location.href = `base.html`;
+                })
+                .catch((fetchError) => {
+                    console.error("Error fetching client data:", fetchError);
+                });
         })
         .catch((err) => {
             console.log(err)
@@ -62,6 +71,22 @@ const fireAlert = (icon, title, txt) => {
         text: `${txt}`,
     });
 }
+const fetchClientData = async (email) => {
+    try {
+        // Assuming your Firestore collection is named "Client"
+        const querySnapshot = await db.collection("Users").where("email", "==", email).get();
+        const clientData = [];
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            clientData.push(data);
+        });
+
+        return clientData;
+    } catch (error) {
+        alert("here")
+        throw error;
+    }
+};
 signup_Btn.addEventListener("click", (e) => {
     e.preventDefault()
     signup()
@@ -70,7 +95,7 @@ sign_Btn.addEventListener("click", (e) => {
     e.preventDefault()
     login()
 })
-const clear =() => {
+const clear = () => {
     PasswordInput.classList.remove("input-border")
     Password2Input.classList.remove("input-border")
 }

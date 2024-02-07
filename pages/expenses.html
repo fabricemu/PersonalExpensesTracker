@@ -1,5 +1,50 @@
-<div class="main-content">
+<style>
+    .balance {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        border: 1px solid red;
+        /*padding: 0 20px;*/
+
+    }
+
+    .balance > div {
+        background: #1d284d;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 0;
+        color: #9ca7ca;
+        width: 200px;
+    }
+
+    .expense-list button {
+        padding: 5px 10px;
+        border-radius: 5px;
+        border-width: 1px;
+    }
+
+    .balance h6 {
+        font-size: 24px;
+        font-weight: 400;
+        border: 1px solid white;
+
+    }
+
+    .expense-list .expense-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        background: white;
+        border: 1px solid darkblue;
+        width: 40%;
+    }
+
+</style>
+<div class="expense-content">
     <h1>Expenses</h1>
+
     <!-- Expense list will be displayed here -->
     <div class="expense-list">
         <!-- Each expense item will be displayed here -->
@@ -10,10 +55,22 @@
                 <p>Date: January 15, 2024</p>
             </div>
             <div class="expense-actions">
-                <button>Edit</button>
-                <button>Delete</button>
+                <button><i class="ti ti-pencil-alt"></i>Edit</button>
+                <button><i class="ti ti-trash"></i>Delete</button>
             </div>
         </div>
         <!-- Additional expense items can be added here -->
     </div>
 </div>
+<div class="expense-content">
+    <!-- Expense list will be displayed here -->
+    <!-- Additional expense items can be added here -->
+</div>
+
+<!-- HTML for displaying and adding/editing expenses -->
+<input id="expense-name" placeholder="Expense Name" type="text">
+<input id="expense-amount" placeholder="Expense Amount" type="number">
+<button id="addExpenseButton">Add/Update Expense</button>
+
+<!-- Expenses container -->
+<div id="expenses-container"></div>
