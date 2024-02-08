@@ -47,12 +47,12 @@ const login = () => {
     const password = loginPassowordInput.value
     auth.signInWithEmailAndPassword(username, password)
         .then((userdata) => {
-            ;
             fetchClientData(username)
                 .then((currentUser) => {
                     const jsonData = JSON.stringify(currentUser)
                     sessionStorage.setItem('jsonData', jsonData);
                     sessionStorage.setItem('userEmail', userdata.user.email)
+                    sessionStorage.setItem('userID', userdata.user.uid)
                     window.location.href = `base.html`;
                 })
                 .catch((fetchError) => {

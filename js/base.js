@@ -37,6 +37,8 @@ const toggleNav = () => {
     }
 }
 
+// const close = document.querySelector(".closeNav")
+// close.addEventListener("click", () =>{})
 const closeNav = () => {
     document.getElementById("mySidebar").style.width = "0";
     document.querySelector(".top_nav").style.marginLeft = "0";
@@ -44,6 +46,11 @@ const closeNav = () => {
     document.querySelector('.toggle-btn').style.display = "block";
     document.querySelector('.small_img').style.display = "block";
 }
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.closebtn').addEventListener('click', closeNav);
+    document.querySelector('.toggle-btn').addEventListener('click', toggleNav);
+});
+
 
 if (!sessionStorage.getItem('userEmail')) {
     // If not logged in, redirect to the login page

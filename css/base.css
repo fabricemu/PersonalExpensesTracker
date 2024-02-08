@@ -95,6 +95,7 @@ body, html {
     margin-right: 7px;
 }
 
+
 .sidebar a {
     color: #9ca7ca;
     padding: 15px;
@@ -167,7 +168,7 @@ main {
     justify-content: center;
 }
 
-.main-top .btns button {
+.main-top .btns button, #addExpenseButton {
     padding: 10px 15px;
     border-radius: 5px;
     font-size: 20px;
@@ -179,7 +180,7 @@ main {
 
 }
 
-.main-top .btns button:first-child {
+.main-top .btns button:first-child, #addExpenseButton {
     background: #1d284d;
     border-color: #1d284d;
     color: #ccc;
@@ -250,6 +251,33 @@ main {
 
 }
 
+
+/*===========================*/
+/*          Expenses         */
+/*===========================*/
+#expenses-table {
+    background: white;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#expenses-table th,
+#expenses-table td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+#expenses-table tbody tr:hover{
+    background: #f0f1f7;
+    cursor: pointer;
+}
+
+#addExpenseButton{
+    float: right;
+    margin: 10px 0;
+}
+
 /*===========================*/
 /*          PROFILE          */
 /*===========================*/
@@ -287,7 +315,7 @@ label {
     display: inline-block;
 }
 
-.profile button{
+.profile button {
     background-color: #1d284d;
     color: white;
     padding: 12px 20px;
@@ -297,7 +325,8 @@ label {
     float: right;
     margin-top: 20px;
 }
-.profile .left button{
+
+.profile .left button {
     float: left;
 }
 
@@ -314,8 +343,33 @@ label {
     .profile .left, .profile .right {
         width: 100%;
     }
-    .top_nav{
+
+    .top_nav {
         width: 100%;
+    }
+
+    /*  Expenses  */
+    #expenses-table th {
+        display: none;
+    }
+
+    #expenses-table tbody,
+    #expenses-table tr,
+    #expenses-table td {
+        display: block;
+    }
+
+    /* Add borders to separate table rows */
+    #expenses-table tbody tr {
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+    }
+
+    /* Hide table row labels */
+    #expenses-table tbody td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
     }
 }
 

@@ -31,46 +31,34 @@
 
     }
 
-    .expense-list .expense-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        background: white;
-        border: 1px solid darkblue;
-        width: 40%;
-    }
-
 </style>
 <div class="expense-content">
     <h1>Expenses</h1>
-
-    <!-- Expense list will be displayed here -->
-    <div class="expense-list">
-        <!-- Each expense item will be displayed here -->
-        <div class="expense-item">
-            <div class="expense-details">
-                <h3>Shopping</h3>
-                <p>$50.00</p>
-                <p>Date: January 15, 2024</p>
-            </div>
-            <div class="expense-actions">
-                <button><i class="ti ti-pencil-alt"></i>Edit</button>
-                <button><i class="ti ti-trash"></i>Delete</button>
-            </div>
-        </div>
-        <!-- Additional expense items can be added here -->
+</div>
+<div class="main-top">
+    <div class="text">
+        <p>My balance</p>
+        <h2><span id="init">200000</span> Rwf </h2>
+    </div>
+    <div class="btns">
+        <button id="addExpenseButton"><i class="ti ti-add"></i>Add Expense</button>
     </div>
 </div>
-<div class="expense-content">
-    <!-- Expense list will be displayed here -->
-    <!-- Additional expense items can be added here -->
-</div>
-
-<!-- HTML for displaying and adding/editing expenses -->
-<input id="expense-name" placeholder="Expense Name" type="text">
-<input id="expense-amount" placeholder="Expense Amount" type="number">
-<button id="addExpenseButton">Add/Update Expense</button>
+<table id="expenses-table">
+    <thead>
+    <tr>
+        <th>Done</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Expenses will be dynamically added here -->
+    </tbody>
+</table>
 
 <!-- Expenses container -->
 <div id="expenses-container"></div>
