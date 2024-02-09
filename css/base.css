@@ -40,8 +40,8 @@ body, html {
     width: calc(100% - 270px);
     background-color: #fff;
     box-sizing: border-box;
-    border: 1px solid darkblue;
-    transition: margin-left 0.5s;
+    /*border: 1px solid darkblue;*/
+    transition: 0.5s;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -58,6 +58,19 @@ body, html {
     width: 30px;
     display: none;
     /*height: 30px;*/
+}
+.top_nav .left .x{
+    background: #1d284d;
+    color: #F2F4F8;
+    padding: 1px 5px;
+    font-weight: 800;
+    border-radius: 5px 0 0 5px;
+}
+.top_nav .left .sysName{
+    border: 1px solid #d9e1ee;
+    padding-right: 7px;
+    background: #d9e1ee;
+    border-radius: 5px;
 }
 
 .sidebar {

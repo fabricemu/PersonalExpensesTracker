@@ -8,12 +8,14 @@ window.addEventListener('resize', () => {
     if (window.innerWidth >= 769) {
         sidebar.style.width = '270px';
         top_nav.style.marginLeft = '270px';
+        top_nav.style.width = 'calc(100% - 270px)';
         mainContent.style.marginLeft = '270px';
         toggleBtn.style.display = 'none';
         small_icon.style.display = 'none';
     } else {
         sidebar.style.width = '0';
-        top_nav.style.marginLeft = 'auto';
+        top_nav.style.marginLeft = '0';
+        top_nav.style.width = '100%';
         mainContent.style.marginLeft = '0';
         toggleBtn.style.display = 'block';
         small_icon.style.display = 'block';
@@ -29,6 +31,7 @@ const toggleNav = () => {
         document.querySelector('.toggle-btn').style.display = "none";
         if (window.innerWidth > 768) {
             document.querySelector(".top_nav").style.marginLeft = "270px";
+            document.querySelector(".top_nav").style.width = "calc(100% - 270px)";
             document.querySelector('main').style.marginLeft = "270px";
             document.querySelector('.toggle-btn').style.display = "none";
             document.querySelector('.small_img').style.display = "none";
@@ -42,6 +45,7 @@ const toggleNav = () => {
 const closeNav = () => {
     document.getElementById("mySidebar").style.width = "0";
     document.querySelector(".top_nav").style.marginLeft = "0";
+    document.querySelector(".top_nav").style.width = "100%";
     document.querySelector('main').style.marginLeft = "0";
     document.querySelector('.toggle-btn').style.display = "block";
     document.querySelector('.small_img').style.display = "block";
