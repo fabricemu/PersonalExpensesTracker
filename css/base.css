@@ -14,13 +14,13 @@ body, html {
     position: relative;
 
 }
+
 .button {
-  /*border: none;*/
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
 
 .main-content {
@@ -31,6 +31,12 @@ body, html {
 /*===========================*/
 /*         DASHBOARD         */
 /*===========================*/
+.welcome {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+}
+
 .top_nav {
     position: fixed;
     top: 0;
@@ -59,14 +65,16 @@ body, html {
     display: none;
     /*height: 30px;*/
 }
-.top_nav .left .x{
+
+.top_nav .left .x {
     background: #1d284d;
     color: #F2F4F8;
     padding: 1px 5px;
     font-weight: 800;
     border-radius: 5px 0 0 5px;
 }
-.top_nav .left .sysName{
+
+.top_nav .left .sysName {
     border: 1px solid #d9e1ee;
     padding-right: 7px;
     background: #d9e1ee;
@@ -271,6 +279,7 @@ main {
     background: #1d284d;
 
 }
+
 footer p {
     text-align: center;
 }
@@ -293,15 +302,17 @@ footer p {
     border: 1px solid #ddd;
 
 }
-#expenses-table tbody tr{
+
+#expenses-table tbody tr {
     transition: .5s;
 }
-#expenses-table tbody tr:hover{
+
+#expenses-table tbody tr:hover {
     background: #f0f1f7;
     cursor: pointer;
 }
 
-#addExpenseButton{
+#addExpenseButton {
     float: right;
     margin: 10px 0;
 }

@@ -13,6 +13,9 @@ window.addEventListener('resize', () => {
         toggleBtn.style.display = 'none';
         small_icon.style.display = 'none';
     } else {
+        mainContent.addEventListener("click", () => {
+            closeNav()
+        })
         sidebar.style.width = '0';
         top_nav.style.marginLeft = '0';
         top_nav.style.width = '100%';

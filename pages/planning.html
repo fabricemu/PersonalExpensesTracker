@@ -1,4 +1,10 @@
 <style>
+    #planning-form, #planning-table {
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+    }
+
     /* Styles for the table */
     #planning-table {
         width: 100%;
@@ -35,11 +41,13 @@
         box-sizing: border-box;
     }
 
-    .form-container button {
-        background-color: #1d284d;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
+    #planning-form button {
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 15px 0;
         border: none;
         border-radius: 4px;
         cursor: pointer;
@@ -88,7 +96,17 @@
 
 </style>
 <section id="planning-form">
+    <div id="title">
+        <h1>Welcome to the Time Frame Selector</h1>
+    </div>
+
+    <div id="content">
+        <p>Please select a time frame from the dropdown below. You can choose from predefined options like week, month,
+            3 months, 6 months, and annual. Alternatively, you can select the "Custom" option to specify a custom time
+            frame by entering the number of weeks and months.</p>
+    </div>
     <h2>Add/Edit Planning Entry</h2>
+    div.
     <label for="timeFrame">Select Time Frame:</label>
     <select id="timeFrame">
         <option value="week">Week</option>
@@ -111,9 +129,9 @@
         <input id="custom-quantity" placeholder="Enter quantity" type="number">
     </div>
     <label for="amount">What is you capital?</label>
-    <input type="number" name="" id="amount" placeholder="Amount in rwf">
-    <button id="add-planning-btn" class="button">Add Planning Entry</button>
-    <button id="edit-planning-btn" class="button">Edit Planning Entry</button>
+    <input id="amount" name="" placeholder="Amount in rwf" type="number">
+    <button class="" id="add-planning-btn">Add Planning Entry</button>
+    <button class="" id="edit-planning-btn">Edit Planning Entry</button>
 </section>
 <section id="planning-table">
     <h2>Planning Entries</h2>

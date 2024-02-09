@@ -15,28 +15,18 @@ export const expenses = async () => {
         }
     };
 
-    const addExpense = async (name, amount, date, description) => {
+    const addExpense = async (name, amount, date, description, planningEntryId) => {
         try {
-            // const initialMoneyDoc = await db.collection("Users").doc(user.uid).get();
-            // const initialMoney = initialMoneyDoc.data().initialMoney;
-            // const remainingMoney = initialMoney - parseFloat(amount);
-            //
-            // // Check if remaining money is sufficient
-            // if (remainingMoney < 0) {
-            //     // Show error message or prevent adding expense
-            //     throw new Error("Insufficient funds");
-            // }
-
-            // Update the initial money in Firestore
-            // await db.collection("Users").doc(user.uid).update({initialMoney: remainingMoney});
 
             await db.collection("Expenses").add({
                 name: name,
                 price: amount,
                 status: "pennding",
                 date: date,
-                description: description
+                description: description,
+                planningEntryId: planningEntryId
             });
+            await subtractExpenseAmountFromPlanning(planningEntryId, amount);
             await displayExpenses();
 
             Swal.fire({
@@ -51,6 +41,17 @@ export const expenses = async () => {
                 text: error.message,
                 icon: 'error'
             });
+        }
+    };
+    const subtractExpenseAmountFromPlanning = async (planningEntryId, expenseAmount) => {
+        try {
+            const planningEntryDoc = await db.collection("Planning").doc(planningEntryId).get();
+            const planningEntryData = planningEntryDoc.data();
+            const updatedAmount = planningEntryData.amount - parseFloat(expenseAmount);
+            await db.collection("Planning").doc(planningEntryId).update({amount: updatedAmount});
+            console.log("Expense amount subtracted from planning entry successfully");
+        } catch (error) {
+            console.error("Error subtracting expense amount from planning entry:", error);
         }
     };
 
@@ -158,14 +159,32 @@ export const expenses = async () => {
 
     const addExpenseButton = document.getElementById("addExpenseButton");
 
-    addExpenseButton.addEventListener("click", () => {
+    addExpenseButton.addEventListener("click", async () => {
+        // Fetch planning entries from Firestore
+        const querySnapshot = await db.collection("Planning").get();
+        const planningEntries = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+
+        // Create the <select> element
+        const planningDropdown = document.createElement("select");
+        planningDropdown.id = "planning-dropdown";
+
+        // Add options for each planning entry to the dropdown
+        planningEntries.forEach(entry => {
+            const option = document.createElement("option");
+            option.value = entry.id;
+            option.textContent = `${entry.timeFrame} - ${entry.amount}`;
+            planningDropdown.appendChild(option);
+        });
+
+        // Display Swal modal for adding a new expense
         Swal.fire({
             title: 'Add New Expense',
             html: `
-            <input id="expenseName" class="" placeholder="Expense Name">
-            <input id="expenseAmount" class="" placeholder="Expense Amount">
-            <input id="expenseDate" type="date" class="" placeholder="Expense Date">
-            <textarea id="expenseDescription" class="" placeholder="Expense Description"></textarea>
+            ${planningDropdown.outerHTML} <!-- Insert the <select> element HTML here -->
+            <input class="" id="expenseName" placeholder="Expense Name">
+            <input class="" id="expenseAmount" placeholder="Expense Amount">
+            <input class="" id="expenseDate" placeholder="Expense Date" type="date">
+            <textarea class="" id="expenseDescription" placeholder="Expense Description"></textarea>
         `,
             showCancelButton: true,
             confirmButtonText: 'Add',
@@ -176,9 +195,10 @@ export const expenses = async () => {
                 const amount = document.getElementById('expenseAmount').value;
                 const date = document.getElementById('expenseDate').value;
                 const description = document.getElementById('expenseDescription').value;
+                const planningEntryId = document.getElementById('planning-dropdown').value;
 
                 // Add the new expense to Firestore
-                return addExpense(name, amount, date, description);
+                return addExpense(name, amount, date, description, planningEntryId);
             }
         }).then((result) => {
             if (result.isConfirmed) {
@@ -190,6 +210,7 @@ export const expenses = async () => {
             }
         });
     });
+
 
     expensesTable.addEventListener("click", (event) => {
         if (event.target.classList.contains("edit-btn")) {
@@ -279,42 +300,72 @@ export const dashboard = async () => {
 }
 
 export const planning = async () => {
+    // Function to add a new planning entry
+    const planningRef = db.collection("Planning");
+    const planningTable = document.getElementById("planning-table-body");
+
     const addPlanningEntry = async (timeFrame, amount) => {
         try {
-            await db.collection("Planning").add({
+            await planningRef.add({
                 timeFrame: timeFrame,
                 amount: amount
             });
-            console.log("Planning entry added successfully");
+            Swal.fire(
+                'New record!',
+                'Planning entry added successfully.',
+                'success'
+            );
+            const entries = await fetchPlanningEntries();
+            displayPlanningEntries(entries);
         } catch (error) {
             console.error("Error adding planning entry:", error);
         }
     };
 
-// Function to edit an existing planning entry
     const editPlanningEntry = async (entryId, newData) => {
         try {
-            await db.collection("Planning").doc(entryId).update(newData);
+            await planningRef.doc(entryId).update(newData);
             console.log("Planning entry updated successfully");
+            const entries = await fetchPlanningEntries();
+            displayPlanningEntries(entries);
         } catch (error) {
             console.error("Error updating planning entry:", error);
         }
     };
 
-// Function to delete a planning entry
     const deletePlanningEntry = async (entryId) => {
         try {
-            await db.collection("Planning").doc(entryId).delete();
-            console.log("Planning entry deleted successfully");
+
+            const result = await Swal.fire({
+                title: 'Are you sure?',
+                text: "Once deleted, you will not be able to recover this expense!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#1d284d',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            });
+
+            if (result.isConfirmed) {
+                // User confirmed deletion
+                await planningRef.doc(entryId).delete();
+                const entries = await fetchPlanningEntries();
+                displayPlanningEntries(entries);
+                Swal.fire(
+                    'Deleted!',
+                    'Your expense has been deleted.',
+                    'success'
+                );
+            }
+
         } catch (error) {
             console.error("Error deleting planning entry:", error);
         }
     };
 
-// Function to fetch all planning entries
     const fetchPlanningEntries = async () => {
         try {
-            const querySnapshot = await db.collection("Planning").get();
+            const querySnapshot = await planningRef.get();
             const planningEntries = [];
             querySnapshot.forEach((doc) => {
                 planningEntries.push({id: doc.id, ...doc.data()});
@@ -326,10 +377,8 @@ export const planning = async () => {
         }
     };
 
-// Function to display planning entries in the table
     const displayPlanningEntries = (entries) => {
-        const tableBody = document.getElementById("planning-table-body");
-        tableBody.innerHTML = ""; // Clear existing entries
+        planningTable.innerHTML = ""; // Clear existing entries
 
         entries.forEach((entry) => {
             const row = document.createElement("tr");
@@ -341,9 +390,52 @@ export const planning = async () => {
                 <button class="delete-btn" data-id="${entry.id}">Delete</button>
             </td>
         `;
-            tableBody.appendChild(row);
+            planningTable.appendChild(row);
         });
     };
+
+    const handleTableRowClick = (event) => {
+        const row = event.target.closest('tr');
+        if (row) {
+            if (event.target.classList.contains("delete-btn")) {
+                const entryId = event.target.dataset.id;
+                deletePlanningEntry(entryId)
+
+            } else {
+                const cells = row.querySelectorAll('td');
+                const rowData = {};
+                cells.forEach(cell => {
+                    const fieldName = cell.dataset.field;
+                    rowData[fieldName] = cell.textContent.trim();
+                });
+
+                Swal.fire({
+                    title: 'Edit Planning Entry',
+                    html: `
+                <form id="editForm">
+                    <label for="timeFrame">Time Frame:</label>
+                    <input type="text" id="timeFrame" value="${rowData.timeFrame}">
+                    <label for="amount">Amount:</label>
+                    <input type="text" id="amount" value="${rowData.amount}">
+                </form>
+            `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Save',
+                    cancelButtonText: 'Cancel',
+                    preConfirm: async () => {
+                        const entryId = event.target.dataset.id;
+                        const timeFrame = document.getElementById('timeFrame').value;
+                        const amount = document.getElementById('amount').value;
+                        await editPlanningEntry(entryId, {timeFrame, amount});
+                    }
+                });
+            }
+
+        }
+    };
+
+// Add click event listener to the table rows
+    planningTable.addEventListener('click', handleTableRowClick);
 
 // Function to handle form submission
     document.getElementById("add-planning-btn").addEventListener("click", async () => {
@@ -351,46 +443,22 @@ export const planning = async () => {
         const amount = document.getElementById("amount").value;
 
         await addPlanningEntry(timeFrame, amount);
-        const entries = await fetchPlanningEntries();
-        displayPlanningEntries(entries);
     });
 
-// Function to handle edit button click
-    document.getElementById("planning-table-body").addEventListener("click", async (event) => {
-        if (event.target.classList.contains("edit-btn")) {
-            const entryId = event.target.dataset.id;
-            const newData = prompt("Enter new data (timeFrame, amount) separated by comma:");
-            if (newData) {
-                const [timeFrame, amount] = newData.split(",");
-                await editPlanningEntry(entryId, {timeFrame, amount});
-                const entries = await fetchPlanningEntries();
-                displayPlanningEntries(entries);
-            }
+// // Initial fetch and display of planning entries
+//     window.addEventListener("DOMContentLoaded", async () => {
+//         const entries = await fetchPlanningEntries();
+//         displayPlanningEntries(entries);
+//     });
+    const displayPlanning = async () => {
+        try {
+            const entries = await fetchPlanningEntries();
+            displayPlanningEntries(entries);
+        } catch (error) {
+            console.error("Error displaying Schedules:", error);
         }
-    });
+    };
+    await displayPlanning()
 
-// Function to handle delete button click
-    document.getElementById("planning-table-body").addEventListener("click", async (event) => {
-        if (event.target.classList.contains("delete-btn")) {
-            const entryId = event.target.dataset.id;
-            if (confirm("Are you sure you want to delete this entry?")) {
-                await deletePlanningEntry(entryId);
-                const entries = await fetchPlanningEntries();
-                displayPlanningEntries(entries);
-            }
-        }
-    });
-
-// Initial fetch and display of planning entries
-    window.addEventListener("DOMContentLoaded", async () => {
-        const entries = await fetchPlanningEntries();
-        displayPlanningEntries(entries);
-    });
-    const frame = document.getElementById("timeFrame")
-    frame.addEventListener("change",  () =>{
-        const customOptions = document.getElementById("customOptions");
-        // If "Custom" is selected, display custom options; otherwise, hide them
-        customOptions.style.display = frame.value === "custom" ? "block" : "none";
-    });
 }
 
