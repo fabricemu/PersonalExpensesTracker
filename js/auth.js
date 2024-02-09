@@ -48,11 +48,12 @@ const login = () => {
     auth.signInWithEmailAndPassword(username, password)
         .then((userdata) => {
             fetchClientData(username)
-                .then((currentUser) => {
-                    const jsonData = JSON.stringify(currentUser)
-                    sessionStorage.setItem('jsonData', jsonData);
-                    sessionStorage.setItem('userEmail', userdata.user.email)
-                    sessionStorage.setItem('userID', userdata.user.uid)
+                .then((currentUserArray) => {
+                    const currentUser = currentUserArray[0];
+                    const userDataString = JSON.stringify(currentUser);
+                    sessionStorage.setItem('userData', userDataString);
+                    sessionStorage.setItem('userEmail', userdata.user.email);
+                    sessionStorage.setItem('userID', userdata.user.uid);
                     window.location.href = `base.html`;
                 })
                 .catch((fetchError) => {
@@ -78,6 +79,7 @@ const fetchClientData = async (email) => {
         const clientData = [];
         querySnapshot.forEach((doc) => {
             const data = doc.data();
+            data.userId = doc.id;
             clientData.push(data);
         });
 

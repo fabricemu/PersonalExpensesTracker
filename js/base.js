@@ -58,9 +58,6 @@ if (!sessionStorage.getItem('userEmail')) {
 }
 
 const email = sessionStorage.getItem('userEmail')
-const storedJsonData = sessionStorage.getItem('jsonData');
-const JsonData = JSON.parse(storedJsonData);
-// alert(JSON.stringify(JsonData))
 const links = document.getElementsByClassName("link")
 const out = document.getElementById("logout")
 

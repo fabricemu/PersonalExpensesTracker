@@ -1,35 +1,132 @@
-<div class="main-content">
-    <h1>Timeframe Planning</h1>
-    <!-- Planning form will be displayed here -->
-    <form id="planning-form">
-        <label for="timeframe">Select Timeframe:</label>
-        <select id="timeframe" name="timeframe">
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
+<style>
+    /* Styles for the table */
+    #planning-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    #planning-table th, #planning-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    #planning-table th {
+        background-color: #f2f2f2;
+    }
+
+    #planning-table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Styles for the form */
+    .form-container {
+        margin-top: 20px;
+    }
+
+    .form-container input[type="text"], .form-container input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .form-container button {
+        background-color: #1d284d;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .form-container button:hover {
+        background-color: #0d1640;
+    }
+
+    /* Styles for the modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+</style>
+<section id="planning-form">
+    <h2>Add/Edit Planning Entry</h2>
+    <label for="timeFrame">Select Time Frame:</label>
+    <select id="timeFrame">
+        <option value="week">Week</option>
+        <option value="month">Month</option>
+        <option value="3months">3 Months</option>
+        <option value="6months">6 Months</option>
+        <option value="annual">Annual</option>
+        <option value="custom">Custom Range</option>
+    </select>
+
+    <div id="customOptions" style="display: none;">
+        <label for="custom-type">Custom Type:</label>
+        <select id="custom-type">
+            <option value="weeks">Days</option>
+            <option value="weeks">Weeks</option>
+            <option value="months">Months</option>
+            <option value="years">Years</option>
+            <option value="my_date">Enter my dates</option>
         </select>
-        <label for="expense-name">Expense Name:</label>
-        <input id="expense-name" name="expense-name" type="text">
-        <label for="expense-amount">Expense Amount:</label>
-        <input id="expense-amount" name="expense-amount" type="number">
-        <label for="due-date">Due Date:</label>
-        <input id="due-date" name="due-date" type="date">
-        <button type="submit">Add Expense</button>
-    </form>
-    <!-- Planning list will be displayed here -->
-    <div class="planning-list">
-        <!-- Each planning item will be displayed here -->
-        <div class="planning-item">
-            <div class="planning-details">
-                <h3>Weekly Plan</h3>
-                <p>Expense: Grocery Shopping</p>
-                <p>Amount: $100.00</p>
-                <p>Due Date: January 20, 2024</p>
-            </div>
-            <div class="planning-actions">
-                <button>Edit</button>
-                <button>Delete</button>
-            </div>
-        </div>
-        <!-- Additional planning items can be added here -->
+        <input id="custom-quantity" placeholder="Enter quantity" type="number">
     </div>
-</div>
+    <label for="amount">What is you capital?</label>
+    <input type="number" name="" id="amount" placeholder="Amount in rwf">
+    <button id="add-planning-btn" class="button">Add Planning Entry</button>
+    <button id="edit-planning-btn" class="button">Edit Planning Entry</button>
+</section>
+<section id="planning-table">
+    <h2>Planning Entries</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Date Period</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="planning-table-body">
+        <!-- Planning entries will be populated here -->
+        </tbody>
+    </table>
+</section>
