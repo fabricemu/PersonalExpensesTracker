@@ -4,10 +4,16 @@ export const expenses = async () => {
     const expensesTable = document.getElementById("expenses-table");
     const fetchExpenses = async () => {
         try {
-            const querySnapshot = await expensesRef.get();
+            const usersRef = db.collection('Users');
+            const userDocRef = usersRef.doc(userId);
+            const querySnapshot = await expensesRef.where("planningEntryId.user_id", "==", userId).get();
+            console.log(querySnapshot)
             const expenses = [];
             querySnapshot.forEach((doc) => {
+                alert("tetttttetttt")
                 expenses.push({id: doc.id, ...doc.data()});
+                console.log("Ex document:", expenses);
+                console.log(doc.id, " => ", doc.data());
             });
             return expenses;
         } catch (error) {
@@ -18,6 +24,8 @@ export const expenses = async () => {
 
     const addExpense = async (name, amount, date, description, planningEntryId) => {
         try {
+            const planningRef = db.collection('Planning');
+            const planningDocRef = planningRef.doc(planningEntryId);
 
             await db.collection("Expenses").add({
                 name: name,
@@ -25,7 +33,7 @@ export const expenses = async () => {
                 status: "pennding",
                 date: date,
                 description: description,
-                planningEntryId: planningEntryId
+                planningEntryId: planningDocRef
             });
             await subtractExpenseAmountFromPlanning(planningEntryId, amount);
             await displayExpenses();
@@ -147,7 +155,7 @@ export const expenses = async () => {
     };
 
     const listenForExpenseChanges = () => {
-        expensesRef.onSnapshot((snapshot) => {
+        expensesRef.where("planningEntryId.user_id", "==", userId).onSnapshot((snapshot) => {
             const expenses = [];
             snapshot.docChanges().forEach((change) => {
                 expenses.push({id: change.doc.id, ...change.doc.data()});
@@ -372,11 +380,10 @@ export const planning = async () => {
             const usersRef = db.collection('Users');
             const userDocRef = usersRef.doc(userId);
             const querySnapshot = await planningRef.where("user_id", "==", userDocRef).get();
-            alert(userDocRef)
             const planningEntries = [];
             querySnapshot.forEach((doc) => {
                 planningEntries.push({id: doc.id, ...doc.data()});
-                console.log("Planning document:", planningEntries);
+
             });
             return planningEntries;
         } catch (error) {
