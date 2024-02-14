@@ -63,7 +63,7 @@ if (!sessionStorage.getItem('userEmail')) {
     // If not logged in, redirect to the login page
     window.location.href = 'index.html';
 }
-
+document.getElementById("username")
 const email = sessionStorage.getItem('userEmail')
 const links = document.getElementsByClassName("link")
 const out = document.getElementById("logout")

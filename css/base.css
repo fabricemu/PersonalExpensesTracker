@@ -318,6 +318,50 @@ footer p {
 }
 
 /*===========================*/
+/*        Statistics         */
+/*===========================*/
+
+
+#table-container {
+    margin: 20px;
+}
+
+#search-input {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 200px;
+}
+
+#data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#data-table th, #data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#data-table th {
+    background-color: #f2f2f2;
+}
+
+#next-btn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#next-btn:hover {
+    background-color: #0056b3;
+}
+
+/*===========================*/
 /*          PROFILE          */
 /*===========================*/
 
@@ -371,6 +415,45 @@ label {
 
 .profile button:hover {
     background-color: #1d286d;
+}
+
+#profile-picture {
+    width: 100%;
+    display: flex;
+    padding: 20px 0;
+    border: 3px solid #eee;
+}
+
+#profile-picture .ti {
+    position: relative;
+    right: calc(50% - 70px);
+    top: 130px;
+
+    height: 30px;
+    padding: 5px;
+    border-radius: 50%;
+    transition: .5s;
+}
+
+#profile-picture .ti:hover {
+    background: #353535;
+    color: #F2F4F8;
+    cursor: pointer;
+}
+
+#profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    object-fit: cover;
+    margin: auto;
+    cursor: pointer;
+    transition: .5s;
+}
+
+#profile-picture img:hover {
+    opacity: 0.9;
 }
 
 

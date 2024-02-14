@@ -1,6 +1,11 @@
 <div class="main-content">
     <div class="profile">
         <h1>Settings</h1>
+        <div id="profile-picture">
+            <!-- Placeholder default image -->
+            <img alt="Default Profile Picture" src="">
+            <i class="ti ti-pencil" id="image-pencil"></i>
+        </div>
         <!-- Settings content will be displayed here -->
         <div class="left">
             <h3>Profile Settings</h3>
@@ -16,16 +21,16 @@
         </div>
         <div class="right">
 
-        <h3>Notification Settings</h3>
-        <form id="notification-form">
-            <label for="notification-preference">Notification Preference:</label>
-            <select id="notification-preference" name="notification-preference">
-                <option value="email">Email</option>
-                <option value="sms">SMS</option>
-                <option value="push">Push Notification</option>
-            </select>
-            <button type="submit">Save Changes</button>
-        </form>
+            <h3>Change your password</h3>
+            <form id="password-change-form">
+                <label for="current">Current Password:</label>
+                <input id="current" type="password">
+                <label for="new_psw">New Password:</label>
+                <input id="new_psw" type="password">
+                <label for="confirm_psw">Confirm Password:</label>
+                <input id="confirm_psw" type="password">
+                <button type="submit">Save Changes</button>
+            </form>
         </div>
 
 

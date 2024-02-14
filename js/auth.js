@@ -54,6 +54,7 @@ const login = () => {
                     sessionStorage.setItem('userData', userDataString);
                     sessionStorage.setItem('userEmail', userdata.user.email);
                     sessionStorage.setItem('userID', userdata.user.uid);
+                    sessionStorage.setItem('userDocId', currentUser.userId);
                     window.location.href = `base.html`;
                 })
                 .catch((fetchError) => {
