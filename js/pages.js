@@ -1,3 +1,4 @@
+const userId = sessionStorage.getItem('userDocId');
 export const expenses = async () => {
     const expensesRef = db.collection("Expenses");
     const expensesTable = document.getElementById("expenses-table");
@@ -304,11 +305,14 @@ export const planning = async () => {
     const planningRef = db.collection("Planning");
     const planningTable = document.getElementById("planning-table-body");
 
-    const addPlanningEntry = async (timeFrame, amount) => {
+    const addPlanningEntry = async (timeFrame, amount, userId) => {
         try {
+            const usersRef = db.collection('Users');
+            const userDocRef = usersRef.doc(userId);
             await planningRef.add({
                 timeFrame: timeFrame,
-                amount: amount
+                amount: amount,
+                user_id: userDocRef
             });
             Swal.fire(
                 'New record!',
@@ -365,10 +369,14 @@ export const planning = async () => {
 
     const fetchPlanningEntries = async () => {
         try {
-            const querySnapshot = await planningRef.get();
+            const usersRef = db.collection('Users');
+            const userDocRef = usersRef.doc(userId);
+            const querySnapshot = await planningRef.where("user_id", "==", userDocRef).get();
+            alert(userDocRef)
             const planningEntries = [];
             querySnapshot.forEach((doc) => {
                 planningEntries.push({id: doc.id, ...doc.data()});
+                console.log("Planning document:", planningEntries);
             });
             return planningEntries;
         } catch (error) {
@@ -442,7 +450,7 @@ export const planning = async () => {
         const timeFrame = document.getElementById("timeFrame").value;
         const amount = document.getElementById("amount").value;
 
-        await addPlanningEntry(timeFrame, amount);
+        await addPlanningEntry(timeFrame, amount, userId);
     });
     const displayPlanning = async () => {
         try {
@@ -558,7 +566,7 @@ export const profile = async () => {
         fileInput.click();
     });
 
-    const userId = sessionStorage.getItem('userDocId');
+
     const fetchUserProfileData = async (userId) => {
         try {
             const userDoc = await db.collection('Users').doc(userId).get();
