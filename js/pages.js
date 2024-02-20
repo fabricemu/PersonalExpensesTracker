@@ -4,22 +4,34 @@ export const expenses = async () => {
     const expensesTable = document.getElementById("expenses-table");
     const fetchExpenses = async () => {
         try {
+
             const usersRef = db.collection('Users');
             const userDocRef = usersRef.doc(userId);
-            const querySnapshot = await expensesRef.where("planningEntryId.user_id", "==", userId).get();
-            console.log(querySnapshot)
+            const planningQuerySnapshot = await db.collection("Planning").where("user_id", "==", userDocRef).get();
+            if (planningQuerySnapshot.empty) {
+                console.log("No planning entries found for the current user.");
+                return [];
+            }
+
+            // Extract planning IDs
+            const planningIds = planningQuerySnapshot.docs.map(doc => doc.id);
+            const PlanningRef = db.collection('Planning');
+            const planDocRefs = planningIds.map(id => PlanningRef.doc(id));
+
+            console.log(planningIds)
+            console.log(planDocRefs)
+            const expensesQuerySnapshot = await db.collection("Expenses").where("planningEntryId", "in", planDocRefs).get();
             const expenses = [];
-            querySnapshot.forEach((doc) => {
-                alert("tetttttetttt")
+            expensesQuerySnapshot.forEach((doc) => {
                 expenses.push({id: doc.id, ...doc.data()});
-                console.log("Ex document:", expenses);
-                console.log(doc.id, " => ", doc.data());
+                console.log("Expense document:", doc.id, " => ", doc.data());
             });
             return expenses;
         } catch (error) {
             console.error("Error fetching expenses:", error);
             return [];
         }
+
     };
 
     const addExpense = async (name, amount, date, description, planningEntryId) => {
@@ -170,7 +182,9 @@ export const expenses = async () => {
 
     addExpenseButton.addEventListener("click", async () => {
         // Fetch planning entries from Firestore
-        const querySnapshot = await db.collection("Planning").get();
+        const usersRef = db.collection('Users');
+        const userDocRef = usersRef.doc(userId);
+        const querySnapshot = await db.collection("Planning").where("user_id", "==", userDocRef).get();
         const planningEntries = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
 
         // Create the <select> element
@@ -615,5 +629,6 @@ export const profile = async () => {
 
 
 }
+
 
 

@@ -45,7 +45,7 @@ const signup = () => {
 const login = () => {
     const username = usernameInput.value
     const password = loginPassowordInput.value
-    auth.signInWithEmailAndPassword(username, password)
+        auth.signInWithEmailAndPassword(username, password)
         .then((userdata) => {
             fetchClientData(username)
                 .then((currentUserArray) => {
@@ -102,3 +102,7 @@ const clear = () => {
     PasswordInput.classList.remove("input-border")
     Password2Input.classList.remove("input-border")
 }
+const addroom = document.getElementById("addroom")
+addroom.addEventListener("click",() =>{
+
+})
